@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction mFragmentTransaction;
     private MyLocation myLocation;
     private Earth mEarth;
+    private Graph graph;
     static String District = "District";
     static String State = "State";
     RelativeLayout r1, r2;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myLocation = new MyLocation();
         mEarth = new Earth();
+        graph = new Graph();
         locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         Toolbar toolbar1 = findViewById(R.id.toolbar_o);
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                         item.setChecked(true);
                         nav_view.getMenu().getItem(2).setChecked(false);
                         nav_view.getMenu().getItem(3).setChecked(false);
+                        nav_view.getMenu().getItem(4).setChecked(false);
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         r1.setVisibility(View.VISIBLE);
                         r2.setVisibility(View.INVISIBLE);
@@ -105,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         item.setChecked(true);
                         nav_view.getMenu().getItem(0).setChecked(false);
                         nav_view.getMenu().getItem(3).setChecked(false);
+                        nav_view.getMenu().getItem(4).setChecked(false);
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         r1.setVisibility(View.INVISIBLE);
                         r2.setVisibility(View.VISIBLE);
@@ -116,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         item.setChecked(true);
                         nav_view.getMenu().getItem(2).setChecked(false);
                         nav_view.getMenu().getItem(0).setChecked(false);
+                        nav_view.getMenu().getItem(4).setChecked(false);
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         r1.setVisibility(View.INVISIBLE);
                         r2.setVisibility(View.VISIBLE);
@@ -123,6 +128,19 @@ public class MainActivity extends AppCompatActivity {
                         nav_transition.replace(R.id.other_fragment, new Helpline());
                         nav_transition.commit();
                         break;
+                    case R.id.faq:
+                        item.setChecked(true);
+                        nav_view.getMenu().getItem(2).setChecked(false);
+                        nav_view.getMenu().getItem(0).setChecked(false);
+                        nav_view.getMenu().getItem(3).setChecked(false);
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        r1.setVisibility(View.INVISIBLE);
+                        r2.setVisibility(View.VISIBLE);
+                        nav_transition = getSupportFragmentManager().beginTransaction();
+                        nav_transition.replace(R.id.other_fragment, new FAQ());
+                        nav_transition.commit();
+                        break;
+
                 }
                 return true;
             }
@@ -144,6 +162,10 @@ public class MainActivity extends AppCompatActivity {
                         mFragmentTransaction.commit();
                         Log.d(TAG, "onNavigationItemSelected: " + "starting earth data");
                         break;
+                    case R.id.graph:
+                        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        mFragmentTransaction.replace(R.id.fragment, graph);
+                        mFragmentTransaction.commit();
                 }
                 return true;
             }

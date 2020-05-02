@@ -33,10 +33,6 @@ public class MyLocation extends Fragment {
     private TextView district_name, state_name;
     static String statecode;
 
-    public MyLocation() {
-    }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,6 +85,7 @@ public class MyLocation extends Fragment {
         active.setText(String.valueOf(active_no));
         recover.setText(String.valueOf(recover_no));
         death.setText(String.valueOf(death_no));
+        Graph.setdistrict(confirm_no, active_no, recover_no, death_no);
     }
 
     void updatingstatedata(JSONObject response) {
@@ -107,6 +104,7 @@ public class MyLocation extends Fragment {
         active_state.setText(String.valueOf(active_no_s));
         recover_state.setText(String.valueOf(recover_no_s));
         death_state.setText(String.valueOf(death_no_s));
+        Graph.setstate(confirm_no_s, active_no_s, recover_no_s, death_no_s);
     }
 
     @SuppressLint("SetTextI18n")
@@ -126,6 +124,7 @@ public class MyLocation extends Fragment {
         recover_c.setText(String.valueOf(recover_no_c));
         death_c.setText(String.valueOf(death_no_c));
         lastupdate.setText("     last updated on\n " + last_update_time);
+        Graph.setcountry(confirm_no_c, active_no_c, recover_no_c, death_no_c);
     }
 
     @SuppressLint("SetTextI18n")
@@ -181,5 +180,8 @@ public class MyLocation extends Fragment {
     void setslocationdata(String district, String state) {
         district_name.setText(district);
         state_name.setText(state);
+        Graph.dis_name = district;
+        Graph.state_name = state;
+        Log.d(TAG, "setslocationdata: " + district + " " + state);
     }
 }

@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     android:background="#DFE8EB"
     tools:context=".MyLocation">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/district_data_layout"
                 android:layout_width="match_parent"
@@ -32,7 +35,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="25dp"
                     android:fontFamily="@font/aladin"
-                    android:text="district name"
+                    android:text="@string/district_name"
                     android:textColor="#000000"
                     android:textSize="34sp"
                     android:textStyle="bold"
@@ -59,12 +62,13 @@
                         android:fontFamily="@font/actor"
                         android:text="@string/confirmed"
                         android:textColor="#C00F0F" />
+
                     <TextView
                         android:id="@+id/confirm_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#C00F0F"
                         android:textStyle="bold" />
 
@@ -97,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#0E3B6B"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -107,8 +111,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/district_name"
-                    android:layout_marginTop="20dp"
                     android:layout_marginStart="1dp"
+                    android:layout_marginTop="20dp"
                     android:layout_toEndOf="@id/active_layout"
                     android:gravity="top|center"
                     android:orientation="vertical"
@@ -129,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#0B700E"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -140,12 +144,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/district_name"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="4dp"
                     android:layout_toEndOf="@id/recovered_layout"
                     android:gravity="top|center"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:orientation="vertical"
                     android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/recovered_layout"
                     app:layout_constraintTop_toBottomOf="@id/district_name">
 
@@ -162,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#2B2C2B"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -180,7 +184,8 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/white_background"
                 android:elevation="8dp"
-                android:paddingBottom="15dp" >
+                android:paddingBottom="15dp">
+
                 <TextView
                     android:id="@+id/state_name"
                     android:layout_width="wrap_content"
@@ -188,7 +193,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="25dp"
                     android:fontFamily="@font/aladin"
-                    android:text="state name"
+                    android:text="@string/state_name"
                     android:textColor="#000000"
                     android:textSize="34sp"
                     android:textStyle="bold"
@@ -221,7 +226,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="@android:color/holo_red_dark"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -252,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#0E3B6B"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -262,10 +267,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/state_name"
+                    android:layout_marginStart="1dp"
                     android:layout_marginTop="20dp"
                     android:layout_toEndOf="@id/active_state_layout"
                     android:gravity="top|center"
-                    android:layout_marginStart="1dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     app:layout_constraintStart_toEndOf="@id/active_state_layout"
@@ -284,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#0B700E"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -295,12 +300,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/state_name"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="4dp"
                     android:layout_toEndOf="@id/recovered_state_layout"
                     android:gravity="top|center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="4dp"
                     android:orientation="vertical"
                     android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/recovered_state_layout"
                     app:layout_constraintTop_toBottomOf="@id/state_name">
 
@@ -317,10 +322,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#2B2C2B"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/new_cases_state_layout"
                     android:layout_width="match_parent"
@@ -333,14 +339,15 @@
                     android:background="@drawable/layout_background"
                     android:gravity="start|center"
                     app:layout_constraintTop_toBottomOf="@id/recovered_state_layout">
+
                     <TextView
                         android:id="@+id/new_state_cases"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="35dp"
-                        android:text="No new cases in your state"
+                        android:text="@string/no_new_cases_in_your_state"
                         android:textColor="#310B68"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -356,6 +363,7 @@
                 android:background="@drawable/white_background"
                 android:elevation="8dp"
                 android:paddingBottom="15dp">
+
                 <TextView
                     android:id="@+id/country_name"
                     android:layout_width="wrap_content"
@@ -363,7 +371,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="25dp"
                     android:fontFamily="@font/aladin"
-                    android:text="India"
+                    android:text="@string/india"
                     android:textColor="#000000"
                     android:textSize="34sp"
                     android:textStyle="bold"
@@ -396,7 +404,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="@android:color/holo_red_dark"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -427,7 +435,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#0E3B6B"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -437,10 +445,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/country_name"
+                    android:layout_marginStart="1dp"
                     android:layout_marginTop="20dp"
                     android:layout_toEndOf="@id/active_country_layout"
                     android:gravity="top|center"
-                    android:layout_marginStart="1dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     app:layout_constraintStart_toEndOf="@id/active_country_layout"
@@ -459,7 +467,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#0B700E"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -470,12 +478,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/country_name"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="4dp"
                     android:layout_toEndOf="@id/recovered_country_layout"
                     android:gravity="top|center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="4dp"
                     android:orientation="vertical"
                     android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/recovered_country_layout"
                     app:layout_constraintTop_toBottomOf="@id/country_name">
 
@@ -492,10 +500,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textColor="#2B2C2B"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/new_cases_country_layout"
                     android:layout_width="match_parent"
@@ -508,28 +517,29 @@
                     android:background="@drawable/layout_background"
                     android:gravity="start|center"
                     app:layout_constraintTop_toBottomOf="@id/recovered_country_layout">
+
                     <TextView
                         android:id="@+id/new_country_cases"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="35dp"
-                        android:text="No new cases in your state"
+                        android:text="@string/no_new_cases_in_country"
                         android:textColor="#310B68"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/last_updated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/country_data_layout"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
+                android:text="@string/null_"
                 android:textColor="#0C3057"
-                android:textSize="14sp"
-                android:layout_centerHorizontal="true"
-                android:text="null"
-                />
+                android:textSize="14sp" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 

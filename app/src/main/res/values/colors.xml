@@ -10,4 +10,9 @@
     <color name="green_layoyt">#CFF3D0</color>
     <color name="black_layoyt">#E9E7E7</color>
     <color name="white_layout">#FFFFFF</color>
+
+    <color name="confirmed">#E24B4B</color>
+    <color name="active">#60A0E4</color>
+    <color name="recovered">#61E964</color>
+    <color name="death">#4A524A</color>
 </resources>

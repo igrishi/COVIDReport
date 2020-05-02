@@ -22,4 +22,9 @@
         android:title="helpline numbers"
         android:icon="@drawable/call"
         app:showAsAction="withText|never" />
+    <item
+        android:id="@+id/faq"
+        android:title="FAQ"
+        android:icon="@drawable/faq"
+        app:showAsAction="withText|never" />
 </menu>

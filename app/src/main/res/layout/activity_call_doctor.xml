@@ -1,83 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DFE8EB"
     tools:context=".Helpline">
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:paddingBottom="15dp"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/help_layout"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="15dp"
-            android:paddingBottom="20dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/white_background"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="central helpline number"
-                android:textStyle="bold"
-                android:textColor="@color/selected"
-                android:textSize="22sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@android:color/holo_red_dark"
-                android:text="+91-11-23978046"/>
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp">
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/help_layout"
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="9dp"
-                android:scaleType="fitXY"
-                android:layout_height="450dp"
-                android:src="@drawable/statenumber"
-                />
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="9dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/utnumber"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/white_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/help_layout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:layout_height="wrap_content">
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/central_helpline_number"
+                    android:textColor="@color/selected"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/_91_11_23978046"
+                    android:textColor="@android:color/holo_red_dark" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="9dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/statenumber"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="9dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/utnumber"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#0C3057"
-                android:text="Source"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#0C3057"
-                android:text="ministry of health and family welfare"/>
-        </LinearLayout>
-    </RelativeLayout>
-</androidx.core.widget.NestedScrollView>
+                android:layout_below="@id/help_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/source"
+                    android:textColor="#0C3057" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ministry_of_health_and_family_welfare"
+                    android:textColor="#0C3057" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

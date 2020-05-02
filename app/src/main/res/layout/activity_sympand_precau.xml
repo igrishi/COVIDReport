@@ -1,99 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/dl"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DFE8EB"
     tools:context=".SympandPrecau">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:paddingBottom="15dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp">
+
             <LinearLayout
                 android:id="@+id/symptoms_layout"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:gravity="center"
-                android:elevation="8dp"
                 android:background="@drawable/white_background"
-                android:layout_height="wrap_content">
+                android:elevation="8dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Symptoms"
-                    android:textStyle="bold"
+                    android:text="@string/symptoms"
                     android:textColor="@color/selected"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="top"
                         android:layout_marginStart="15dp"
-                        android:layout_height="wrap_content">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
                             android:layout_height="wrap_content"
-                            android:text="• Fever"/>
+                            android:text="@string/fever"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:layout_height="wrap_content"
-                            android:text="• tiredness"/>
+                            android:text="@string/tiredness"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• dry cough"/>
+                            android:layout_marginTop="5dp"
+                            android:text="@string/dry_cough"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• aches and pains"/>
+                            android:layout_marginTop="5dp"
+                            android:text="@string/aches_and_pains"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• runny nose"/>
+                            android:layout_marginTop="5dp"
+                            android:text="@string/runny_nose"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• sore throat"/>
+                            android:layout_marginTop="5dp"
+                            android:text="@string/sore_throat"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• nasal congestion"/>
+                            android:layout_marginTop="5dp"
+                            android:text="@string/nasal_congestion"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• diarrhoea"/>
+                            android:layout_marginTop="5dp"
+                            android:text="@string/diarrhoea"
+                            android:textSize="18sp" />
                     </LinearLayout>
+
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/order_animation"
                         android:layout_width="140dp"
@@ -110,46 +124,51 @@
                 android:id="@+id/prevention"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="8dp"
-                android:orientation="vertical"
                 android:layout_below="@id/symptoms_layout"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/white_background"
-                android:paddingBottom="10dp"
+                android:elevation="8dp"
                 android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:orientation="vertical"
+                android:paddingBottom="15dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Prevention"
-                    android:textStyle="bold"
+                    android:text="@string/prevention"
                     android:textColor="@color/selected"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="top"
                         android:layout_marginStart="15dp"
-                        android:layout_height="wrap_content">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
                             android:layout_height="wrap_content"
-                            android:text="• wash hands often"/>
+                            android:text="• wash hands often"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:layout_height="wrap_content"
-                            android:text="• stay at home"/>
+                            android:text="• stay at home"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -160,24 +179,27 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• cover your cough"/>
+                            android:layout_marginTop="5dp"
+                            android:text="• cover your cough"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• don't touch your\n  eyes,nose and mouth"/>
+                            android:layout_marginTop="5dp"
+                            android:text="• don't touch your\n  eyes,nose and mouth"
+                            android:textSize="18sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            android:text="• if sick talk to a doctor"/>
+                            android:layout_marginTop="5dp"
+                            android:text="• if sick talk to a doctor"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
+
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/wash_hand_animation"
                         android:layout_width="140dp"
@@ -191,13 +213,13 @@
             </LinearLayout>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/prevention"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Source WHO"
-                android:textColor="#0C3057"/>
+                android:text="@string/source_who"
+                android:textColor="#0C3057" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 

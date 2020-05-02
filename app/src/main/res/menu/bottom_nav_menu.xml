@@ -11,5 +11,10 @@
         android:icon="@drawable/earth"
         android:title="earth"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/graph"
+        android:title="Graph"
+        android:icon="@drawable/graph"
+        app:showAsAction="ifRoom" />
 
 </menu>
