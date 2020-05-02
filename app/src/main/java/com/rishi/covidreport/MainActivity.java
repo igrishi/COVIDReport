@@ -2,11 +2,14 @@ package com.rishi.covidreport;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,11 +28,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.loopj.android.http.AsyncHttpClient;
@@ -52,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction mFragmentTransaction;
     private MyLocation myLocation;
     private Earth mEarth;
-    static String District;
-    static String State;
+    static String District = "District";
+    static String State = "State";
     RelativeLayout r1, r2;
+    LocationManager locationmanager;
+    LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myLocation = new MyLocation();
         mEarth = new Earth();
+        locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         Toolbar toolbar1 = findViewById(R.id.toolbar_o);
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -186,10 +187,58 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
             return;
         }
-        userlocation();
+        userlocation_lm();
     }
 
-    private void userlocation() {
+    private void userlocation_lm() {
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                double lat = location.getLatitude();
+                double lng = location.getLongitude();
+                Geocoder geocoder = new Geocoder(MainActivity.this);
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+                    if (addresses.size() != 0) {
+                        District = addresses.get(0).getSubAdminArea();
+                        State = addresses.get(0).getAdminArea();
+                        Log.d(TAG, "onComplete: location accessed");
+                        Log.d(TAG, "onComplete: " + "District is: " + District + " State is: " + State);
+
+                        //this will not give nullpointer exception as mylocation instantes are already instaniated
+                        //ie. district_name and state_name are already instanited and we are setting text on it
+                        //while in previous one we where setting data without any instantiation
+                        myLocation.setslocationdata(District, State);
+                        covid19data(District, State);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationmanager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 1000, locationListener);
+    }
+
+    //for requesting permission using fused location provider
+   /* private void userlocation() {
         Log.d(TAG, "userlocation: accessing user location");
         FusedLocationProviderClient locationprovider = LocationServices.getFusedLocationProviderClient(this);
         locationprovider.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -226,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: Error occured" + e.toString());
             }
         });
-    }
+    }*/
 
     private void covid19data(final String district, final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -343,13 +392,21 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Log.d(TAG, "onRequestPermissionsResult: " + "permission Granted");
-                    userlocation();
+                    userlocation_lm();
                 }
             } else {
                 Toast.makeText(this, "Permission: Denied", Toast.LENGTH_LONG).show();
             }
         } else {
             Toast.makeText(this, "Something went Wrong", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (locationListener != null) {
+            locationmanager.removeUpdates(locationListener);
         }
     }
 }
