@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFE8EB"
+    tools:context=".Graph">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="19dp">
+
+            <TextView
+                android:id="@+id/district_graph_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="@string/district"
+                android:textColor="@color/selected"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/district_graph_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/district_graph_name"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/white_background"
+                android:elevation="8dp"
+                android:orientation="horizontal"
+                android:paddingBottom="1dp"
+                android:weightSum="2">
+
+                <org.eazegraph.lib.charts.PieChart
+                    android:id="@+id/piechart_d"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:padding="8dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#E24B4B" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/confirmed"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#60A0E4" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/active"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#61E964" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/recovered"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#4A524A" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/death"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/state_graph_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/district_graph_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="@string/state"
+                android:textColor="@color/selected"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/state_graph_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/state_graph_name"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/white_background"
+                android:elevation="8dp"
+                android:orientation="horizontal"
+                android:paddingBottom="1dp"
+                android:weightSum="2">
+
+                <org.eazegraph.lib.charts.PieChart
+                    android:id="@+id/piechart"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:padding="8dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#E24B4B" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/confirmed"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#60A0E4" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/active"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#61E964" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/recovered"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#4A524A" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/death"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/country_graph_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/state_graph_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="@string/india"
+                android:textColor="@color/selected"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/country_graph_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/country_graph_name"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/white_background"
+                android:elevation="8dp"
+                android:orientation="horizontal"
+                android:paddingBottom="1dp"
+                android:weightSum="2">
+
+                <org.eazegraph.lib.charts.PieChart
+                    android:id="@+id/piechart_c"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:padding="8dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#E24B4B" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/confirmed"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#60A0E4" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/active"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#61E964" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/recovered"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:background="#4A524A" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:text="@string/death"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>
