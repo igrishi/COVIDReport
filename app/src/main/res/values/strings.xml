@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">COVIDReport</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="active">Active</string>
+    <string name="recovered">Recovered</string>
+    <string name="death">Death</string>
+</resources>

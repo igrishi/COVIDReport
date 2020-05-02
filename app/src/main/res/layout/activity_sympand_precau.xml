@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/dl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFE8EB"
+    tools:context=".SympandPrecau">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="15dp"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/symptoms_layout"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:elevation="8dp"
+                android:background="@drawable/white_background"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Symptoms"
+                    android:textStyle="bold"
+                    android:textColor="@color/selected"
+                    android:textSize="24sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="top"
+                        android:layout_marginStart="15dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_height="wrap_content"
+                            android:text="• Fever"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• tiredness"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• dry cough"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• aches and pains"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• runny nose"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• sore throat"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• nasal congestion"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• diarrhoea"/>
+                    </LinearLayout>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/order_animation"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginEnd="15dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/fever" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/prevention"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:layout_below="@id/symptoms_layout"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/white_background"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Prevention"
+                    android:textStyle="bold"
+                    android:textColor="@color/selected"
+                    android:textSize="24sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="top"
+                        android:layout_marginStart="15dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_height="wrap_content"
+                            android:text="• wash hands often"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• stay at home"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="• follow social\n distancing"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• cover your cough"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• don't touch your\n  eyes,nose and mouth"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:text="• if sick talk to a doctor"/>
+
+                    </LinearLayout>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/wash_hand_animation"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginEnd="18dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/washhand" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_below="@id/prevention"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Source WHO"
+                android:textColor="#0C3057"/>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

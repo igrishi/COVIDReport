@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home"
+        app:showAsAction="withText|never"/>
+    <item
+        android:id="@+id/donation"
+        android:title="Donate to PM Care Fund"
+        android:icon="@drawable/donation"
+        app:showAsAction="withText|never" />
+
+    <item
+        android:id="@+id/prevention"
+        android:title="Prevention"
+        android:icon="@drawable/prevention"
+        app:showAsAction="withText|never" />
+    <item
+        android:id="@+id/helpline"
+        android:title="helpline numbers"
+        android:icon="@drawable/call"
+        app:showAsAction="withText|never" />
+</menu>
