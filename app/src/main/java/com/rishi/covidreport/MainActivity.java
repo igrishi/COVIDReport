@@ -16,7 +16,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,9 +57,12 @@ public class MainActivity extends AppCompatActivity {
     private Graph graph;
     static String District = "District";
     static String State = "State";
-    RelativeLayout r1, r2;
-    LocationManager locationmanager;
-    LocationListener locationListener;
+    private RelativeLayout r1, r2;
+    private LocationManager locationmanager;
+    private LocationListener locationListener;
+    private RelativeLayout loader_layout;
+    private ProgressBar mProgressBar;
+    private TextView loading_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         Toolbar toolbar1 = findViewById(R.id.toolbar_o);
         mDrawerLayout = findViewById(R.id.drawer_layout);
+        loader_layout = findViewById(R.id.loading_layout);
+        mProgressBar = findViewById(R.id.progess_bar);
+        loading_text = findViewById(R.id.loading_text);
         r1 = findViewById(R.id.home_layout);
         r2 = findViewById(R.id.other_layout);
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_view);
@@ -180,13 +188,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        boolean check = checkgoogleplayservices();
+        boolean check = check_google_play_services();
         if (check) {
-            requestpermission();
+            request_permission();
         }
     }
 
-    private boolean checkgoogleplayservices() {
+    private boolean check_google_play_services() {
         Log.d(TAG, "checking google play services");
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
         if (available == ConnectionResult.SUCCESS) {
@@ -204,23 +212,25 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void requestpermission() {
-        Log.d(TAG, "requestpermission: Requesing permissions");
+    private void request_permission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
             return;
         }
         if (!locationmanager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Log.d(TAG, "requestpermission: " + "gps provider");
             alert_dialog();
+        } else {
+            mProgressBar.setVisibility(View.VISIBLE);
+            loading_text.setVisibility(View.VISIBLE);
+            userlocation_lm();
         }
-        userlocation_lm();
     }
 
     private void alert_dialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your gps seems to be disabled, Please enable it")
+        builder.setTitle("Location Permission")
+                .setMessage("Your GPS seems to be disabled, please enable it")
                 .setCancelable(false)
                 .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
                     @Override
@@ -244,14 +254,8 @@ public class MainActivity extends AppCompatActivity {
                     if (addresses.size() != 0) {
                         District = addresses.get(0).getSubAdminArea();
                         State = addresses.get(0).getAdminArea();
-                        Log.d(TAG, "onComplete: location accessed");
-                        Log.d(TAG, "onComplete: " + "District is: " + District + " State is: " + State);
-
-                        //this will not give nullpointer exception as mylocation instantes are already instaniated
-                        //ie. district_name and state_name are already instanited and we are setting text on it
-                        //while in previous one we where setting data without any instantiation
                         myLocation.setslocationdata(District, State);
-                        covid19data(District, State);
+                        covid19_district_data(District, State);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -319,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }*/
 
-    private void covid19data(final String district, final String state) {
+    private void covid19_district_data(final String district, final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         String state_vise_url = "https://api.covid19india.org/state_district_wise.json";
         asyncHttpClient.get(state_vise_url, new JsonHttpResponseHandler() {
@@ -332,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.d(TAG, "onSuccess: getting state stats");
                             myLocation.updatingdata(state_data);
-                            covid19statedata(state);
+                            covid19_state_data(state);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -347,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void covid19statedata(final String state) {
+    private void covid19_state_data(final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         String statedataurl = "https://api.covid19india.org/data.json";
         asyncHttpClient.get(statedataurl, new JsonHttpResponseHandler() {
@@ -368,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    dailydata();
+                    daily_data();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -382,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void dailydata() {
+    private void daily_data() {
         String dailt_url = "https://api.covid19india.org/states_daily.json";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(dailt_url, new JsonHttpResponseHandler() {
@@ -407,10 +411,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: something went wrong" + throwable.toString());
             }
         });
-        globedata();
+        globe_data();
     }
 
-    private void globedata() {
+    private void globe_data() {
         String globe_url = "https://coronavirus-19-api.herokuapp.com/countries";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(globe_url, new JsonHttpResponseHandler() {
@@ -423,6 +427,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onProgress(long bytesWritten, long totalSize) {
+                super.onProgress(bytesWritten, totalSize);
+                if (bytesWritten == totalSize) {
+                    mProgressBar.setVisibility(View.GONE);
+                    loading_text.setVisibility(View.GONE);
+                    loader_layout.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -448,6 +462,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if (locationListener != null) {
+            Log.d(TAG, "onPause: location permission removed");
             locationmanager.removeUpdates(locationListener);
         }
     }

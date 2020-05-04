@@ -15,4 +15,6 @@
     <color name="active">#60A0E4</color>
     <color name="recovered">#61E964</color>
     <color name="death">#4A524A</color>
+
+    <color name="loading">#0B3866</color>
 </resources>
