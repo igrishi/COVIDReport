@@ -55,14 +55,17 @@ public class MainActivity extends AppCompatActivity {
     private MyLocation myLocation;
     private Earth mEarth;
     private Graph graph;
-    static String District = "District";
-    static String State = "State";
-    private RelativeLayout r1, r2;
+    public static String District = "District";
+    public static String State = "State";
+    private RelativeLayout r1;
+    private RelativeLayout r2;
     private LocationManager locationmanager;
     private LocationListener locationListener;
     private RelativeLayout loader_layout;
     private ProgressBar mProgressBar;
     private TextView loading_text;
+    private NavigationView nav_view;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         loading_text = findViewById(R.id.loading_text);
         r1 = findViewById(R.id.home_layout);
         r2 = findViewById(R.id.other_layout);
-        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_view);
-        final NavigationView nav_view = findViewById(R.id.nav_view);
+        bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        nav_view = findViewById(R.id.nav_view);
         nav_view.getMenu().getItem(0).setChecked(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,11 +98,29 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
+        navigationclicklistener();
+        bottomnavigationlistener();
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.replace(R.id.fragment, myLocation);
+        mFragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean check = checkgoogleplayservices();
+        if (check) {
+            requestpermission();
+        }
+    }
+
+    private void navigationclicklistener() {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentTransaction nav_transition;
                 int id = item.getItemId();
+                Log.d(TAG, "navigationclicklistener: navigation item clicked");
                 switch (id) {
                     case R.id.home:
                         item.setChecked(true);
@@ -150,15 +171,22 @@ public class MainActivity extends AppCompatActivity {
                         nav_transition.replace(R.id.other_fragment, new FAQ());
                         nav_transition.commit();
                         break;
+                    default:
+                        Log.d(TAG, "onNavigationItemSelected: " + "nothing selected");
 
                 }
                 return true;
             }
         });
+
+    }
+
+    private void bottomnavigationlistener() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
+                Log.d(TAG, "onNavigationItemSelected: bottom navigation clicked");
                 switch (id) {
                     case R.id.location:
                         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -176,25 +204,17 @@ public class MainActivity extends AppCompatActivity {
                         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
                         mFragmentTransaction.replace(R.id.fragment, graph);
                         mFragmentTransaction.commit();
+                        Log.d(TAG, "onNavigationItemSelected: " + "starting graph data");
+                        break;
+                    default:
+                        Log.d(TAG, "onNavigationItemSelected: nothing clicked");
                 }
                 return true;
             }
         });
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.fragment, myLocation);
-        mFragmentTransaction.commit();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        boolean check = check_google_play_services();
-        if (check) {
-            request_permission();
-        }
-    }
-
-    private boolean check_google_play_services() {
+    private boolean checkgoogleplayservices() {
         Log.d(TAG, "checking google play services");
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
         if (available == ConnectionResult.SUCCESS) {
@@ -212,22 +232,22 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void request_permission() {
+    private void requestpermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
             return;
         }
         if (!locationmanager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            alert_dialog();
+            alertdialog();
         } else {
             mProgressBar.setVisibility(View.VISIBLE);
             loading_text.setVisibility(View.VISIBLE);
-            userlocation_lm();
+            userlocationlm();
         }
     }
 
-    private void alert_dialog() {
+    private void alertdialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Location Permission")
                 .setMessage("Your GPS seems to be disabled, please enable it")
@@ -242,10 +262,11 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void userlocation_lm() {
+    private void userlocationlm() {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+                Log.d(TAG, "onLocationChanged: user location accessed");
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 Geocoder geocoder = new Geocoder(MainActivity.this);
@@ -255,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                         District = addresses.get(0).getSubAdminArea();
                         State = addresses.get(0).getAdminArea();
                         myLocation.setslocationdata(District, State);
-                        covid19_district_data(District, State);
+                        covid19districtdata(District, State);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -264,17 +285,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
+                Log.d(TAG, "onStatusChanged: " + "status changed: " + status);
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-
+                Log.d(TAG, "onProviderEnabled: Provider Enabled");
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-
+                Log.d(TAG, "onProviderDisabled: provider Disabled");
             }
         };
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -323,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }*/
 
-    private void covid19_district_data(final String district, final String state) {
+    private void covid19districtdata(final String district, final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         String state_vise_url = "https://api.covid19india.org/state_district_wise.json";
         asyncHttpClient.get(state_vise_url, new JsonHttpResponseHandler() {
@@ -336,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.d(TAG, "onSuccess: getting state stats");
                             myLocation.updatingdata(state_data);
-                            covid19_state_data(state);
+                            covid19statedata(state);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -351,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void covid19_state_data(final String state) {
+    private void covid19statedata(final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         String statedataurl = "https://api.covid19india.org/data.json";
         asyncHttpClient.get(statedataurl, new JsonHttpResponseHandler() {
@@ -372,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    daily_data();
+                    dailydata();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -386,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void daily_data() {
+    private void dailydata() {
         String dailt_url = "https://api.covid19india.org/states_daily.json";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(dailt_url, new JsonHttpResponseHandler() {
@@ -411,10 +432,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: something went wrong" + throwable.toString());
             }
         });
-        globe_data();
+        globedata();
     }
 
-    private void globe_data() {
+    private void globedata() {
         String globe_url = "https://coronavirus-19-api.herokuapp.com/countries";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(globe_url, new JsonHttpResponseHandler() {
@@ -448,7 +469,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Log.d(TAG, "onRequestPermissionsResult: " + "permission Granted");
-                    userlocation_lm();
+                    userlocationlm();
                 }
             } else {
                 Toast.makeText(this, "Permission: Denied", Toast.LENGTH_LONG).show();

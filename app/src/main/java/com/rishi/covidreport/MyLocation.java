@@ -24,14 +24,27 @@ public class MyLocation extends Fragment {
     @SuppressLint("StaticFieldLeak")
     private static TextView lastupdate;
     private static String last_update_time;
-    private static int confirm_no, active_no, recover_no, death_no;
-    private static int confirm_no_s, active_no_s, recover_no_s, death_no_s;
-    private static int confirm_no_c, active_no_c, recover_no_c, death_no_c;
+    private static int confirm_no;
+    private static int active_no;
+    private static int recover_no;
+    private static int death_no;
+    private static int confirm_no_s;
+    private static int active_no_s;
+    private static int recover_no_s;
+    private static int death_no_s;
+    private static int confirm_no_c;
+    private static int active_no_c;
+    private static int recover_no_c;
+    private static int death_no_c;
     @SuppressLint("StaticFieldLeak")
-    private static TextView state_new_case, country_new_case;
-    private static int state_n_case, country_n_case;
-    private TextView district_name, state_name;
-    static String statecode;
+    private static TextView state_new_case;
+    @SuppressLint("StaticFieldLeak")
+    private static TextView country_new_case;
+    private static int state_n_case;
+    private static int country_n_case;
+    private TextView district_name;
+    private TextView state_name;
+    public static String statecode;
 
     @Nullable
     @Override
@@ -41,21 +54,26 @@ public class MyLocation extends Fragment {
         //finding id
         district_name = v.findViewById(R.id.district_name);
         state_name = v.findViewById(R.id.state_name);
+
         confirm = v.findViewById(R.id.confirm_number);
         active = v.findViewById(R.id.active_number);
         recover = v.findViewById(R.id.recovered_number);
         death = v.findViewById(R.id.death_number);
+
         confirm_state = v.findViewById(R.id.confirm_state_number);
         active_state = v.findViewById(R.id.active_state_number);
         recover_state = v.findViewById(R.id.recovered_state_no);
         death_state = v.findViewById(R.id.death_state_number);
+
         confirm_c = v.findViewById(R.id.confirm_country_number);
         active_c = v.findViewById(R.id.active_country_number);
         recover_c = v.findViewById(R.id.recovered_country_no);
         death_c = v.findViewById(R.id.death_country_number);
+
         lastupdate = v.findViewById(R.id.last_updated);
         state_new_case = v.findViewById(R.id.new_state_cases);
         country_new_case = v.findViewById(R.id.new_country_cases);
+
         return v;
     }
 
@@ -71,7 +89,7 @@ public class MyLocation extends Fragment {
         state_name.setText(MainActivity.State);
     }
 
-    void updatingdata(JSONObject response) {
+    public void updatingdata(JSONObject response) {
         try {
             confirm_no = response.getInt("confirmed");
             active_no = response.getInt("active");
@@ -81,14 +99,16 @@ public class MyLocation extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         confirm.setText(String.valueOf(confirm_no));
         active.setText(String.valueOf(active_no));
         recover.setText(String.valueOf(recover_no));
         death.setText(String.valueOf(death_no));
+
         Graph.setdistrict(confirm_no, active_no, recover_no, death_no);
     }
 
-    void updatingstatedata(JSONObject response) {
+    public void updatingstatedata(JSONObject response) {
         try {
             statecode = response.getString("statecode");
             statecode = statecode.toLowerCase();
@@ -100,15 +120,17 @@ public class MyLocation extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         confirm_state.setText(String.valueOf(confirm_no_s));
         active_state.setText(String.valueOf(active_no_s));
         recover_state.setText(String.valueOf(recover_no_s));
         death_state.setText(String.valueOf(death_no_s));
+
         Graph.setstate(confirm_no_s, active_no_s, recover_no_s, death_no_s);
     }
 
     @SuppressLint("SetTextI18n")
-    void updatecountrydata(JSONObject response) {
+    public void updatecountrydata(JSONObject response) {
         try {
             confirm_no_c = response.getInt("confirmed");
             active_no_c = response.getInt("active");
@@ -119,16 +141,18 @@ public class MyLocation extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         confirm_c.setText(String.valueOf(confirm_no_c));
         active_c.setText(String.valueOf(active_no_c));
         recover_c.setText(String.valueOf(recover_no_c));
         death_c.setText(String.valueOf(death_no_c));
+
         lastupdate.setText("     last updated on\n " + last_update_time);
         Graph.setcountry(confirm_no_c, active_no_c, recover_no_c, death_no_c);
     }
 
     @SuppressLint("SetTextI18n")
-    void newcases(JSONObject response, String statecode) {
+    public void newcases(JSONObject response, String statecode) {
         try {
             Log.d(TAG, "newcases: " + statecode);
             state_n_case = response.getInt(statecode);
