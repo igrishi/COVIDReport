@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
-        android:src="@drawable/bacteria"
+        android:src="@drawable/appicon"
         tools:ignore="ContentDescription" />
 
     <TextView
