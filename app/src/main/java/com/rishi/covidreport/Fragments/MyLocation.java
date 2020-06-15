@@ -1,6 +1,7 @@
 package com.rishi.covidreport.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +12,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.rishi.covidreport.DistrictActivity;
 import com.rishi.covidreport.Fragments.Graph;
 import com.rishi.covidreport.MainActivity;
+import com.rishi.covidreport.ModalClass.DistrictModal;
 import com.rishi.covidreport.R;
+import com.rishi.covidreport.StateActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,6 +89,23 @@ public class MyLocation extends Fragment {
         if(flag){
             local.setVisibility(View.GONE);
         }
+
+        ConstraintLayout state = v.findViewById(R.id.country_data_layout);
+        state.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), StateActivity.class);
+                startActivity(intent);
+            }
+        });
+        ConstraintLayout district=v.findViewById(R.id.state_data_layout);
+        district.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), DistrictActivity.class);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 

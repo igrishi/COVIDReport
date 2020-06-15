@@ -14,12 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FAQ"></activity>
+        <activity android:name=".DistrictActivity"></activity>
+        <activity android:name=".StateActivity" />
+        <activity android:name=".FAQ" />
         <activity android:name=".Fragments.Graph" />
         <activity android:name=".Helpline" />
         <activity android:name=".SympandPrecau" />
         <activity android:name=".Fragments.Earth"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".Fragments.MyLocation" />
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden|adjustPan">

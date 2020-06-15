@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.rishi.covidreport.GlobalAdapter;
-import com.rishi.covidreport.GlobalModal;
+import com.rishi.covidreport.Adapters.GlobalAdapter;
+import com.rishi.covidreport.ModalClass.GlobalModal;
 import com.rishi.covidreport.R;
 
 import org.json.JSONArray;
@@ -49,6 +49,7 @@ public class Earth extends Fragment{
         adapter=new GlobalAdapter(g_list,g_listfull, context);
         recycler.setAdapter(adapter);
         SearchView searchView=view.findViewById(R.id.c_search);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

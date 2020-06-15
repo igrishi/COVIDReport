@@ -1,4 +1,4 @@
-package com.rishi.covidreport;
+package com.rishi.covidreport.ModalClass;
 
 public class GlobalModal {
     private String country_name, flag;

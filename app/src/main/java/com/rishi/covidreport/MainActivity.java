@@ -12,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,12 +36,15 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.rishi.covidreport.Fragments.Earth;
 import com.rishi.covidreport.Fragments.Graph;
 import com.rishi.covidreport.Fragments.MyLocation;
+import com.rishi.covidreport.ModalClass.DistrictModal;
+import com.rishi.covidreport.ModalClass.StateModal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -60,14 +65,21 @@ public class MainActivity extends AppCompatActivity {
     private LocationListener locationListener;
     private NavigationView nav_view;
     private BottomNavigationView bottomNavigationView;
+    public static List<StateModal> state_list;
+    public static List<DistrictModal> district_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate: ");
+
+        state_list=new ArrayList<>();
+        district_list=new ArrayList<>();
         myLocation = new MyLocation();
         mEarth = new Earth();
         graph = new Graph();
+
         locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         Toolbar toolbar1 = findViewById(R.id.toolbar_o);
@@ -96,9 +108,11 @@ public class MainActivity extends AppCompatActivity {
         mFragmentTransaction.commit();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: ");
         requestpermission();
     }
 
@@ -303,17 +317,35 @@ public class MainActivity extends AppCompatActivity {
 
     private void covid19districtdata(final String district, final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        String state_vise_url = "https://api.covid19india.org/state_district_wise.json";
+        String state_vise_url = "https://api.covid19india.org/v2/state_district_wise.json";
         asyncHttpClient.get(state_vise_url, new JsonHttpResponseHandler() {
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                         super.onSuccess(statusCode, headers, response);
                         try {
-                            JSONObject state_data = response.getJSONObject(state).getJSONObject("districtData")
-                                    .getJSONObject(district);
-
                             Log.d(TAG, "onSuccess: getting state stats");
-                            myLocation.updatingdata(state_data);
+                            String districtname;
+                            int confirm,active,recovered,death;
+                            for(int i=1;i<response.length();++i){
+                                String statename=response.getJSONObject(i).getString("state");
+                                if(statename.equals(state)){
+                                    JSONArray array=response.getJSONObject(i).getJSONArray("districtData");
+                                    for(int j=0;j<array.length();++j){
+                                         districtname=array.getJSONObject(j).getString("district");
+                                         confirm=array.getJSONObject(j).getInt("confirmed");
+                                         active=array.getJSONObject(j).getInt("active");
+                                         recovered=array.getJSONObject(j).getInt("recovered");
+                                         death=array.getJSONObject(j).getInt("deceased");
+                                         if(districtname.equals(district)){
+                                             JSONObject state_data=array.getJSONObject(j);
+                                             myLocation.updatingdata(state_data);
+                                         }
+                                        DistrictModal modal=new DistrictModal(districtname,confirm,active,recovered,death);
+                                         district_list.add(modal);
+                                    }
+                                    break;
+                                }
+                            }
                             covid19statedata(state);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -338,16 +370,22 @@ public class MainActivity extends AppCompatActivity {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     String state_name;
+                    int confirm,active,recovered,death;
                     JSONArray states = response.getJSONArray("statewise");
                     int total_data = states.length();
                     JSONObject country_stats = states.getJSONObject(0);
                     myLocation.updatecountrydata(country_stats);
-                    for (int i = 0; i < total_data; ++i) {
+                    for (int i = 1; i < total_data; ++i) {
                         state_name = states.getJSONObject(i).getString("state");
+                        confirm=states.getJSONObject(i).getInt("confirmed");
+                        active=states.getJSONObject(i).getInt("active");
+                        recovered=states.getJSONObject(i).getInt("recovered");
+                        death=states.getJSONObject(i).getInt("deaths");
+                        StateModal modal=new StateModal(state_name,confirm,active,recovered,death);
+                        state_list.add(modal);
                         Log.d(TAG, "onSuccess: " + state_name);
                         if (state_name.equals(state)) {
                             myLocation.updatingstatedata(states.getJSONObject(i));
-                            break;
                         }
                     }
                     dailydata();

@@ -17,9 +17,10 @@
         android:id="@+id/c_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/search"
+        app:iconifiedByDefault="false"
+        app:searchIcon="@drawable/search"
         android:drawablePadding="8dp"
-        app:queryHint="search"/>
+        app:queryHint="search.."/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/global_recycler"
         android:layout_width="match_parent"

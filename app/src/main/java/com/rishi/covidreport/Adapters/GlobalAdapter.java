@@ -1,4 +1,4 @@
-package com.rishi.covidreport;
+package com.rishi.covidreport.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.rishi.covidreport.ModalClass.GlobalModal;
+import com.rishi.covidreport.R;
 
 import java.util.ArrayList;
 import java.util.List;
