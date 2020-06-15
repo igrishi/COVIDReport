@@ -15,12 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".FAQ"></activity>
-        <activity android:name=".Graph" />
+        <activity android:name=".Fragments.Graph" />
         <activity android:name=".Helpline" />
         <activity android:name=".SympandPrecau" />
-        <activity android:name=".Earth" />
-        <activity android:name=".MyLocation" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Fragments.Earth"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name=".Fragments.MyLocation" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

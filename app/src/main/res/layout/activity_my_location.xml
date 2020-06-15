@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DFE8EB"
-    tools:context=".MyLocation">
+    tools:context=".Fragments.MyLocation">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -14,15 +14,20 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            <ProgressBar
+                android:id="@+id/d_progress"
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="true" />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/district_data_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/d_progress"
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/white_background"
                 android:elevation="8dp"

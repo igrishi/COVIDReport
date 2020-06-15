@@ -1,7 +1,6 @@
 package com.rishi.covidreport;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,9 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,12 +27,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.rishi.covidreport.Fragments.Earth;
+import com.rishi.covidreport.Fragments.Graph;
+import com.rishi.covidreport.Fragments.MyLocation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +47,6 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 123;
     private String TAG = "MainActivity";
-    private static final int ERROR_DIALOG_REQUEST = 9001;
     private DrawerLayout mDrawerLayout;
     private FragmentTransaction mFragmentTransaction;
     private MyLocation myLocation;
@@ -61,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout r2;
     private LocationManager locationmanager;
     private LocationListener locationListener;
-    private RelativeLayout loader_layout;
-    private ProgressBar mProgressBar;
-    private TextView loading_text;
     private NavigationView nav_view;
     private BottomNavigationView bottomNavigationView;
 
@@ -78,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         Toolbar toolbar1 = findViewById(R.id.toolbar_o);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        loader_layout = findViewById(R.id.loading_layout);
-        mProgressBar = findViewById(R.id.progess_bar);
-        loading_text = findViewById(R.id.loading_text);
         r1 = findViewById(R.id.home_layout);
         r2 = findViewById(R.id.other_layout);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
@@ -108,10 +99,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        boolean check = checkgoogleplayservices();
-        if (check) {
-            requestpermission();
-        }
+        requestpermission();
     }
 
     private void navigationclicklistener() {
@@ -214,43 +202,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkgoogleplayservices() {
-        Log.d(TAG, "checking google play services");
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
-        if (available == ConnectionResult.SUCCESS) {
-            //everything is fine google play service is present along with correct version and the user can make request
-            Log.d(TAG, "Google play service is working");
-            return true;
-        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            //an error occured but can be resolved eg.older version present so user will be directed to google play to update it
-            Log.d(TAG, "error occured but can be resolved");
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
-            dialog.show();
-        } else {
-            Toast.makeText(MainActivity.this, "You can't make map request", Toast.LENGTH_LONG).show();
-        }
-        return false;
-    }
-
-    private void requestpermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
-            return;
-        }
-        if (!locationmanager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            alertdialog();
-        } else {
-            mProgressBar.setVisibility(View.VISIBLE);
-            loading_text.setVisibility(View.VISIBLE);
-            userlocationlm();
-        }
-    }
-
     private void alertdialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Location Permission")
-                .setMessage("Your GPS seems to be disabled, please enable it")
+                .setMessage("Your Location access seems to be disabled, please enable it")
                 .setCancelable(false)
                 .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
                     @Override
@@ -276,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
                         District = addresses.get(0).getSubAdminArea();
                         State = addresses.get(0).getAdminArea();
                         myLocation.setslocationdata(District, State);
+                        Log.d(TAG, "onLocationChanged: "+District+" "+State);
+                        locationmanager.removeUpdates(locationListener);
                         covid19districtdata(District, State);
                     }
                 } catch (IOException e) {
@@ -301,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationmanager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 1000, locationListener);
+        locationmanager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 1000, locationListener);
     }
 
     //for requesting permission using fused location provider
@@ -432,34 +389,19 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: something went wrong" + throwable.toString());
             }
         });
-        globedata();
     }
 
-    private void globedata() {
-        String globe_url = "https://coronavirus-19-api.herokuapp.com/countries";
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(globe_url, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-                mEarth.fromJSON(response);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-
-            @Override
-            public void onProgress(long bytesWritten, long totalSize) {
-                super.onProgress(bytesWritten, totalSize);
-                if (bytesWritten == totalSize) {
-                    mProgressBar.setVisibility(View.GONE);
-                    loading_text.setVisibility(View.GONE);
-                    loader_layout.setVisibility(View.GONE);
-                }
-            }
-        });
+    private void requestpermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
+            return;
+        }
+        if (!locationmanager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            alertdialog();
+        } else {
+            userlocationlm();
+        }
     }
 
     @Override
@@ -479,12 +421,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (locationListener != null) {
-            Log.d(TAG, "onPause: location permission removed");
-            locationmanager.removeUpdates(locationListener);
-        }
-    }
 }

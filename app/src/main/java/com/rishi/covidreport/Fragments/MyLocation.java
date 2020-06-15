@@ -1,4 +1,4 @@
-package com.rishi.covidreport;
+package com.rishi.covidreport.Fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -6,11 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.rishi.covidreport.Fragments.Graph;
+import com.rishi.covidreport.MainActivity;
+import com.rishi.covidreport.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +50,8 @@ public class MyLocation extends Fragment {
     private TextView district_name;
     private TextView state_name;
     public static String statecode;
+    private ProgressBar local;
+    private boolean flag=false;
 
     @Nullable
     @Override
@@ -54,6 +61,7 @@ public class MyLocation extends Fragment {
         //finding id
         district_name = v.findViewById(R.id.district_name);
         state_name = v.findViewById(R.id.state_name);
+        local=v.findViewById(R.id.d_progress);
 
         confirm = v.findViewById(R.id.confirm_number);
         active = v.findViewById(R.id.active_number);
@@ -73,7 +81,9 @@ public class MyLocation extends Fragment {
         lastupdate = v.findViewById(R.id.last_updated);
         state_new_case = v.findViewById(R.id.new_state_cases);
         country_new_case = v.findViewById(R.id.new_country_cases);
-
+        if(flag){
+            local.setVisibility(View.GONE);
+        }
         return v;
     }
 
@@ -166,6 +176,8 @@ public class MyLocation extends Fragment {
         if (country_n_case != 0) {
             country_new_case.setText("+" + country_n_case + " new cases in india");
         }
+        flag=true;
+        local.setVisibility(View.GONE);
     }
 
     private static void updatingdata_t() {
@@ -201,7 +213,7 @@ public class MyLocation extends Fragment {
         }
     }
 
-    void setslocationdata(String district, String state) {
+    public void setslocationdata(String district, String state) {
         district_name.setText(district);
         state_name.setText(state);
         Graph.dis_name = district;

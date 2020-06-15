@@ -82,32 +82,5 @@
             app:menu="@menu/nav_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 
-    <RelativeLayout
-        android:id="@+id/loading_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff">
 
-        <ProgressBar
-            android:id="@+id/progess_bar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:visibility="invisible"
-            android:layout_centerInParent="true"
-            android:indeterminate="true" />
-
-        <TextView
-            android:id="@+id/loading_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progess_bar"
-            android:visibility="invisible"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:alpha="1.0"
-            android:text="@string/loading"
-            android:textColor="@color/loading"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
 </RelativeLayout>
