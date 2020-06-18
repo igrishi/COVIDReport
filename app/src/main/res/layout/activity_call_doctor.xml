@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFE8EB"
+    android:background="#121212"
     tools:context=".Helpline">
 
     <androidx.core.widget.NestedScrollView
@@ -78,13 +78,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/source"
-                    android:textColor="#0C3057" />
+                    android:textColor="#fff" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ministry_of_health_and_family_welfare"
-                    android:textColor="#0C3057" />
+                    android:textColor="#fff" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

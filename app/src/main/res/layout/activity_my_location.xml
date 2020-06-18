@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFE8EB"
+    android:background="#121212"
     tools:context=".Fragments.MyLocation">
 
     <androidx.core.widget.NestedScrollView
@@ -17,7 +17,7 @@
             <ProgressBar
                 android:id="@+id/d_progress"
                 android:layout_width="match_parent"
-                android:layout_height="13dp"
+                android:layout_height="10dp"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:indeterminate="true" />
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -543,7 +543,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/null_"
-                android:textColor="#0C3057"
+                android:textColor="#fff"
                 android:textSize="14sp" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

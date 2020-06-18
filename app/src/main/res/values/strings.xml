@@ -23,15 +23,14 @@
     <string name="null_">null</string>
     <string name="copyright_rishi">Copyright ©|Rishi</string>
     <string name="symptoms">Symptoms</string>
-    <string name="fever">• Fever</string>
-    <string name="tiredness">• tiredness</string>
-    <string name="dry_cough">• dry cough</string>
-    <string name="aches_and_pains">• aches and pains</string>
-    <string name="runny_nose">• runny nose</string>
-    <string name="sore_throat">• sore throat</string>
-    <string name="nasal_congestion">• nasal congestion</string>
-    <string name="diarrhoea">• diarrhoea</string>
+    <string name="fever">Fever</string>
+    <string name="tiredness">Tiredness</string>
+    <string name="dry_cough">Dry cough</string>
+    <string name="aches_and_pains">Aches and pains</string>
+    <string name="runny_nose">Runny nose</string>
+    <string name="sore_throat">Sore throat</string>
+    <string name="nasal_congestion">Nasal congestion</string>
     <string name="prevention">Prevention</string>
     <string name="source_who">Source WHO</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
 </resources>

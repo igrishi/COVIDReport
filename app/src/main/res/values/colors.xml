@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#F3F7F7</color>
+    <color name="colorPrimary">#222222</color>
+    <color name="colorPrimaryDark">#222222</color>
     <color name="colorAccent">#D81B60</color>
     <color name="selected">#6391C2</color>
 
@@ -17,4 +17,5 @@
     <color name="death">#4A524A</color>
 
     <color name="loading">#0B3866</color>
+    <color name="pre_dark">#272424</color>
 </resources>
