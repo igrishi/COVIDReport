@@ -3,7 +3,7 @@ COVIDReport
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/feabc54c74be46eaa25186a639b2e9fc)](https://app.codacy.com/manual/igrishi/COVIDReport?utm_source=github.com&utm_medium=referral&utm_content=igrishi/COVIDReport&utm_campaign=Badge_Grade_Dashboard)
 
-<img src="app/src/main/res/drawable/appicon.png" height="220" align="left">
+<img src="app/src/main/res/drawable/appicon.png" height="150" align="centre">
  
 ## About
 `COVIDReport` is a native mobile application made with Android Studio
