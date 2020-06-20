@@ -1,4 +1,4 @@
-package com.rishi.covidreport;
+package com.rishi.covidreport.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class FAQ extends Fragment {
+import com.rishi.covidreport.R;
+
+public class Helpline extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_faq, container, false);
+        return inflater.inflate(R.layout.activity_call_doctor,container,false);
     }
 }

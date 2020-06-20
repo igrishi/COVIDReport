@@ -16,10 +16,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DistrictActivity"></activity>
         <activity android:name=".StateActivity" />
-        <activity android:name=".FAQ" />
+        <activity android:name=".Fragments.FAQ" />
         <activity android:name=".Fragments.Graph" />
-        <activity android:name=".Helpline" />
-        <activity android:name=".SympandPrecau" />
+        <activity android:name=".Fragments.Helpline" />
+        <activity android:name=".Fragments.SympandPrecau" />
         <activity android:name=".Fragments.Earth"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".Fragments.MyLocation" />

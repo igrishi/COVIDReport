@@ -12,7 +12,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,8 +32,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.rishi.covidreport.Fragments.Earth;
+import com.rishi.covidreport.Fragments.FAQ;
 import com.rishi.covidreport.Fragments.Graph;
+import com.rishi.covidreport.Fragments.Helpline;
 import com.rishi.covidreport.Fragments.MyLocation;
+import com.rishi.covidreport.Fragments.SympandPrecau;
 import com.rishi.covidreport.ModalClass.DistrictModal;
 import com.rishi.covidreport.ModalClass.StateModal;
 
@@ -57,10 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private MyLocation myLocation;
     private Earth mEarth;
     private Graph graph;
-    public static String District = "District";
-    public static String State = "State";
-    private RelativeLayout r1;
-    private RelativeLayout r2;
+    public static String District = "District",State="State";
+    private RelativeLayout r1,r2;
     private LocationManager locationmanager;
     private LocationListener locationListener;
     private NavigationView nav_view;
@@ -101,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
-        navigationclicklistener();
-        bottomnavigationlistener();
+        nav_view();
+        bottom_navigation();
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.fragment, myLocation);
         mFragmentTransaction.commit();
@@ -113,16 +112,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: ");
-        requestpermission();
+        request_permission();
     }
 
-    private void navigationclicklistener() {
+    private void nav_view() {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentTransaction nav_transition;
                 int id = item.getItemId();
-                Log.d(TAG, "navigationclicklistener: navigation item clicked");
+                Log.d(TAG, "nav_view: navigation item clicked");
                 switch (id) {
                     case R.id.home:
                         item.setChecked(true);
@@ -183,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void bottomnavigationlistener() {
+    private void bottom_navigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -216,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void alertdialog() {
+    private void alert_dialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Location Permission")
                 .setMessage("Your Location access seems to be disabled, please enable it")
@@ -231,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void userlocationlm() {
+    private void user_location() {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -247,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                         myLocation.setslocationdata(District, State);
                         Log.d(TAG, "onLocationChanged: "+District+" "+State);
                         locationmanager.removeUpdates(locationListener);
-                        covid19districtdata(District, State);
+                        district_data(District, State);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -315,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }*/
 
-    private void covid19districtdata(final String district, final String state) {
+    private void district_data(final String district, final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         String state_vise_url = "https://api.covid19india.org/v2/state_district_wise.json";
         asyncHttpClient.get(state_vise_url, new JsonHttpResponseHandler() {
@@ -346,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 }
                             }
-                            covid19statedata(state);
+                            state_data(state);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -361,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void covid19statedata(final String state) {
+    private void state_data(final String state) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         String statedataurl = "https://api.covid19india.org/data.json";
         asyncHttpClient.get(statedataurl, new JsonHttpResponseHandler() {
@@ -388,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
                             myLocation.updatingstatedata(states.getJSONObject(i));
                         }
                     }
-                    dailydata();
+                    daily_data();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -402,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void dailydata() {
+    private void daily_data() {
         String dailt_url = "https://api.covid19india.org/states_daily.json";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(dailt_url, new JsonHttpResponseHandler() {
@@ -429,16 +428,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void requestpermission() {
+    private void request_permission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
             return;
         }
         if (!locationmanager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            alertdialog();
+            alert_dialog();
         } else {
-            userlocationlm();
+            user_location();
         }
     }
 
@@ -449,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Log.d(TAG, "onRequestPermissionsResult: " + "permission Granted");
-                    userlocationlm();
+                    user_location();
                 }
             } else {
                 Toast.makeText(this, "Permission: Denied", Toast.LENGTH_LONG).show();

@@ -14,12 +14,11 @@ import java.util.List;
 
 public class StateActivity extends AppCompatActivity {
 
-    private List<StateModal> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_state);
-        list=new ArrayList<>(MainActivity.state_list);
+        List<StateModal> list = new ArrayList<>(MainActivity.state_list);
         RecyclerView recyclerView=findViewById(R.id.recycler_state);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
