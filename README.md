@@ -10,13 +10,11 @@ COVIDReport
 
 ## Features
 * shows the total confirmed, active ,recovered, deaths cases of your district,state and nation(India).
-* shows details about new cases of your state and country.
 * shows details about cases of all states of country and all district in your state.
 * shows detail of cases of all countries.
 * Gets updated regularly.
 * shows Pie-chart representation of your district,state and country.
 * information on symptoms and prevention of Covid-19
-* Donate to PM Care fund (India)
 * provides helpline number for all states and union territories along with a central helpline number.
 * Great User Interface.
 
