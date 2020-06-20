@@ -3,10 +3,27 @@ COVIDReport
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/feabc54c74be46eaa25186a639b2e9fc)](https://app.codacy.com/manual/igrishi/COVIDReport?utm_source=github.com&utm_medium=referral&utm_content=igrishi/COVIDReport&utm_campaign=Badge_Grade_Dashboard)
 
-<img src="app/src/main/res/drawable/appicon.png" height="150" align="centre">
+<p align="center">
+  <img src="app/src/main/res/drawable/appicon.png" height="150" />
+</p>
  
 ## About
 `COVIDReport` is a native mobile application made with Android Studio
+
+<table style="width:100%">
+  <tr>
+    <th>My Location Data</th>
+    <th>State Data</th>
+    <th>Global Data</th>
+    <th>Pie-Chart</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/my-loc-data.jpeg"/></td>
+    <td><img src="screenshots/state.jpeg"/></td>
+    <td><img src="screenshots/global-data.jpeg"/></td>
+    <td><img src="screenshots/graph.jpeg"/></td>
+  </tr>
+</table>
 
 ## Features
 * shows the total confirmed, active ,recovered, deaths cases of your district,state and nation(India).
